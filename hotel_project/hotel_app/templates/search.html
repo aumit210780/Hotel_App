@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Hotels</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+    <!-- Header -->
+    <header class="bg-blue-600 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold"><a href="{% url 'search' %}">Hotel Finder</a></h1>
+            <nav>
+                <a href="{% url 'home' %}" class="px-4">Home</a>
+                <a href="{% url 'search' %}" class="px-4">Search</a>
+
+                {% if user.is_authenticated %}
+                    <span class="px-4">Hello, {{ user.username }}</span>
+                    <a href="{% url 'logout' %}" class="px-4">Logout</a>
+                {% else %}
+                    <a href="{% url 'signup' %}" class="px-4">Sign Up</a>
+                    <a href="{% url 'login' %}" class="px-4">Login</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <!-- Centered Form -->
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-96">
+            <h2 class="text-2xl font-bold mb-6 text-center">Search Hotels</h2>
+            <form method="get" action="{% url 'search' %}" class="space-y-4">
+                {% csrf_token %}
+                <div>
+                    <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+                    <input type="text" name="city" id="city" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter city" required>
+                </div>
+                <div>
+                    <label for="min_price" class="block text-sm font-medium text-gray-700">Min Price</label>
+                    <input type="number" name="min_price" id="min_price" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Min price" required>
+                </div>
+                <div>
+                    <label for="max_price" class="block text-sm font-medium text-gray-700">Max Price</label>
+                    <input type="number" name="max_price" id="max_price" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Max price" required>
+                </div>
+                <div>
+                    <label for="star_rating" class="block text-sm font-medium text-gray-700">Star Rating</label>
+                    <input type="number" name="star_rating" id="star_rating" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="1 to 5" min="1" max="5" required>
+                </div>
+                <div>
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-8 text-center text-gray-600">
+        <p>&copy; 2025 Hotel Finder Website. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
